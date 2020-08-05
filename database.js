@@ -1,3 +1,4 @@
+const shortid = require("shortid");
 let users = [
   {
     id: "1",
@@ -22,7 +23,7 @@ function getUsers() {
 
 function createUser(data) {
   const payload = {
-    id: String(users.length + 1),
+    id: shortid.generate(),
     ...data,
   };
 
