@@ -18,6 +18,24 @@ app.get("/api/users", (req, res) => {
   }
 });
 
+app.get("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const user = db.getUserById(id);
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      return res.status(400).json({
+        message: "The user with the specified ID does not exist.",
+      });
+    }
+  } catch (err) {
+    res.status(500).send("The users information could not be retrieved.");
+  }
+});
+
 app.post(
   "/api/users",
   [check("name").not().isEmpty(), check("bio").not().isEmpty()],
